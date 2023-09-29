@@ -18,7 +18,7 @@ public class Main {
             menu.mostrar();
 
             opcion = menu.leerOpcion();
-            sc.nextLine();
+
             System.out.print("Introduce el nombre fichero donde se almacena la música: ");
             nombreArchivo = sc.nextLine();
 
@@ -33,7 +33,6 @@ public class Main {
 
                     break;
             }
-
 
         } while (opcion != 3);
 

@@ -3,7 +3,6 @@ package org.example;
 import java.util.Scanner;
 
 public class Menu {
-
     private int opcion;
 
     public int getOpcion() {
@@ -32,6 +31,4 @@ public class Menu {
         sc.nextLine();
         return opcion;
     }
-
-
 }
