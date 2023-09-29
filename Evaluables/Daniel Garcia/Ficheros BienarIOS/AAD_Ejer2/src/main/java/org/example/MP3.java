@@ -4,10 +4,8 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.RandomAccess;
 
 public class MP3 {
-
     public static void LeerInfoMP3(String nombreArchivo) {
         try {
 
@@ -44,44 +42,52 @@ public class MP3 {
                 System.out.println("Género -> ");*/
             }
 
-            byte[] bytes;
+
             Charset charset = StandardCharsets.ISO_8859_1;
-            int posicion, dato;
-            String artista, album, comentario, genero;
-            char[] cabecera = new char[3];
-            char[] titulo = new char[30];
-            char aux;
-            int anyo, numeroPista;
-            boolean tieneNumeroPista;
 
             for (String l: lineas){
                 File f2 = new File(l);
-                FileInputStream lecturaBinario = new FileInputStream(f);
                 RandomAccessFile raf = new RandomAccessFile(f2, "r");
-                //DataInputStream dataInputStream = new DataInputStream(lecturaBinario);
-                bytes = new byte[(int) f2.length()];
-                lecturaBinario.read(bytes);
 
+                long posicion = raf.length();
+                long puntero = posicion - 128;
+                raf.seek(puntero + 3); //El "+3" es porque queremos leer a partir del titulo,
+                                           // por lo que los 3 bytes de la cabecera, los saltamos.
 
-                posicion = ((int)f2.length() - 128);
-                raf.seek(posicion);
-                for(int i = 0; i < cabecera.length; i++){
-                    aux = raf.readChar();
-                    cabecera[i] = aux;
-                }
-
-                for(int s = 0; s < titulo.length; s++){
-                    aux = raf.readChar();
-                    titulo[s] = aux;
-                }
-                String cabeceraA = new String(cabecera);
+                byte[] titulo = new byte[30];
+                raf.read(titulo);
                 String tituloT = new String(titulo);
-                System.out.println("Cabecera -> " + cabeceraA);
+
+
+                byte[] artista = new byte[30];
+                raf.read(artista);
+                String artist = new String(artista);
+
+                byte[] album = new byte[30];
+                raf.read(album);
+                String alb = new String(album);
+
+                byte[] anyo = new byte[4];
+                raf.read(anyo);
+                String year = new String(anyo);
+
+                byte[] comentario = new byte[28];
+                raf.read(comentario);
+                String comment = new String(comentario);
+
+                raf.seek(+1);
+                byte[] numPista = new byte[1];
+                raf.read(numPista);
+                String numeroPista = new String(numPista);
+
+                byte[] genero = new byte[1];
+                raf.read(genero);
+                String gener = new String(genero);
+
                 System.out.println("Titulo -> " + tituloT);
                 System.out.println("A");
 
-                lecturaBinario.close();
-
+                raf.close();
 
             }
 

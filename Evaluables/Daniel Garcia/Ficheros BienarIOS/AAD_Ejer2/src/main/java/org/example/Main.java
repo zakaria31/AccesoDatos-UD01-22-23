@@ -3,7 +3,6 @@ package org.example;
 import java.util.Scanner;
 
 public class Main {
-
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -19,7 +18,7 @@ public class Main {
 
             opcion = menu.leerOpcion();
 
-            System.out.print("Introduce el nombre fichero donde se almacena la música: ");
+            System.out.print("Introduce el nombre fichero (txt) donde se almacena la música: ");
             nombreArchivo = sc.nextLine();
 
             switch (opcion){
