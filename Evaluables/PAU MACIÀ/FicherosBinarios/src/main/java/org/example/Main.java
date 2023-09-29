@@ -23,22 +23,27 @@ public class Main {
             System.out.println("\nElige una opción: ");
             eleccion=sc.nextInt();
             if (eleccion==1){
-                leerInfo();
+                leerFichero(eleccion);
             } else if (eleccion==2) {
-                MP3.escribirInfo();
+               leerFichero(eleccion);
             } else if (eleccion==3) {
                 return;
             }
         }while (eleccion<1 || eleccion>3);
     }
 
-    public static void leerInfo(){
+    public static void leerFichero(int n){
         try (BufferedReader lectura = new BufferedReader(new FileReader("direcciones.txt"))){
             String linea = null;
             do{
                 linea = lectura.readLine();
                 if (linea!=null){
-                    MP3.leerInfo(linea);
+                    if (n==1){
+                        MP3.leerInfo(linea);
+                    }else{
+                        MP3.escribirInfo(linea);
+                    }
+
                 }
 
             }while(linea!=null);
