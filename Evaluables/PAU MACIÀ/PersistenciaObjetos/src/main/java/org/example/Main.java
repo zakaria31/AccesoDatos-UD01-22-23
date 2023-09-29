@@ -46,7 +46,7 @@ public class Main {
         pelicula = new Pelicula(titulo, actores,directores,fechaSalida,formato);
         return pelicula;
     }
-    public static void InsertarObjeto(Pelicula pelicula) throws IOException {
+    public static void InsertarObjeto(Pelicula pelicula) {
         try{
             File archivo = new File("src/main/resources/peliculas.dat");
 
@@ -57,6 +57,7 @@ public class Main {
             FileOutputStream fos = new FileOutputStream(archivo);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(pelicula);
+            oos.close();
         }catch (IOException e){
             System.out.println("error fichero");
         }catch (Exception e){
@@ -77,7 +78,7 @@ public class Main {
                     listaPeli.add(pelicula);
                 }
             }catch (EOFException eof){
-
+                ois.close();
             }
         }catch (IOException io){
             System.out.println("error fichero");
