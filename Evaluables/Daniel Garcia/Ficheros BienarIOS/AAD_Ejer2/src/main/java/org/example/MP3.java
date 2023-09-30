@@ -1,8 +1,6 @@
 package org.example;
 
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class MP3 {
@@ -33,17 +31,9 @@ public class MP3 {
 
             for (String li: lineas) {
                 System.out.println(li);
-                /*System.out.println("Titulo -> " );
-                System.out.println("Artista -> ");
-                System.out.println("Álbum -> ");
-                System.out.println("Pista -> ");
-                System.out.println("Anyo -> ");
-                System.out.println("Comentario -> ");
-                System.out.println("Género -> ");*/
             }
 
-
-            Charset charset = StandardCharsets.ISO_8859_1;
+            System.out.println("\n--------------------------------------------------");
 
             for (String l: lineas){
                 File f2 = new File(l);
@@ -57,7 +47,6 @@ public class MP3 {
                 byte[] titulo = new byte[30];
                 raf.read(titulo);
                 String tituloT = new String(titulo);
-
 
                 byte[] artista = new byte[30];
                 raf.read(artista);
@@ -75,29 +64,34 @@ public class MP3 {
                 raf.read(comentario);
                 String comment = new String(comentario);
 
-                raf.seek(+1);
-                byte[] numPista = new byte[1];
-                raf.read(numPista);
-                String numeroPista = new String(numPista);
-
+                raf.seek(+1); //Sumamos 1, porque (tiene numero pista) no nos hace falta saberlo, y como ocupa 1byte, pues sumamos 1
                 byte[] genero = new byte[1];
                 raf.read(genero);
                 String gener = new String(genero);
 
+                byte[] numPista = new byte[1];
+                raf.read(numPista);
+                String numeroPista = new String(numPista);
+
                 System.out.println("Titulo -> " + tituloT);
-                System.out.println("A");
+                System.out.println("Artista -> " + artist);
+                System.out.println("Álbum -> " + alb);
+                System.out.println("Numero Pista -> " + numeroPista);
+                System.out.println("Año -> " + year);
+                System.out.println("Comentario -> " + comment);
+                System.out.println("Género -> " + gener);
+                System.out.println("--------------------------------------------------\n");
 
                 raf.close();
 
             }
-
 
         } catch (IOException e) {
             System.out.println("Error -> " + e.getMessage());
         }
 
     }
-    public static void EscribitMP3(String nombreArchivo){
+    public static void EscribirMP3(String nombreArchivo){
         try {
             File f = new File("src/main/resources/" + nombreArchivo);
             FileOutputStream escritura = new FileOutputStream(f);
