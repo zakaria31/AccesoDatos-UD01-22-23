@@ -56,11 +56,19 @@ public class MP3 {
         File cancion = new File(direccion);
         try(RandomAccessFile raf = new RandomAccessFile(cancion, "r")){
 
-            System.out.println("Escribe el número de pista: ");
-            pista = sc.nextInt();
+            do{
+                System.out.println("Escribe el número de pista: ");
+                pista = sc.nextInt();
+            }while(pista<1 || pista>9);
 
-            System.out.println("Escribe el año de lanzamiento");
-            anyo = sc.nextInt();
+            do{
+                System.out.println("Escribe el año de lanzamiento: ");
+                anyo = sc.nextInt();
+            }while(anyo<0 || anyo>9999);
+
+            do{
+
+            }while(comentario.length());
 
             System.out.println("Escribe un comentario: ");
             comentario = sc.nextLine();
@@ -70,4 +78,5 @@ public class MP3 {
         }
 
     }
+
 }

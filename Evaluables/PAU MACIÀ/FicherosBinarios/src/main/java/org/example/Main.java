@@ -25,7 +25,7 @@ public class Main {
             if (eleccion==1){
                 leerFichero(eleccion);
             } else if (eleccion==2) {
-               leerFichero(eleccion);
+                leerFichero(eleccion);
             } else if (eleccion==3) {
                 return;
             }
