@@ -71,13 +71,13 @@ public class MP3 {
                 raf.read(a);
                 String tnp = new String(a);
 
-                byte[] genero = new byte[1];
-                raf.read(genero);
-                String gener = new String(genero);
-
                 byte[] numPista = new byte[1];
                 raf.read(numPista);
                 String numeroPista = new String(numPista);
+
+                byte[] genero = new byte[1];
+                raf.read(genero);
+                String gener = new String(genero);
 
                 System.out.println("Titulo -> " + tituloT);
                 System.out.println("Artista -> " + artist);
@@ -85,7 +85,7 @@ public class MP3 {
                 System.out.println("Numero Pista -> " + numeroPista);
                 System.out.println("Año -> " + year);
                 System.out.println("Comentario -> " + comment);
-                System.out.println("Género -> " + gener);
+                System.out.println("Género -> " + seleccionGenero(gener));
                 System.out.println("--------------------------------------------------");
 
                 raf.close();
@@ -161,7 +161,7 @@ public class MP3 {
                 //raf.writeBytes(titulo);
 
 
-                raf.seek(puntero + 93);//Sumamos 60 para introducir directamente el anyo
+                raf.seek(puntero + 93);
                 byte[] year = new byte[4];
                 year = anyo.getBytes();
                 raf.write(year);
@@ -173,7 +173,7 @@ public class MP3 {
                 //raf.writeBytes(comentario);
 
 
-                raf.seek(puntero+127);//Sumamos el byte de Tiene Número Pista y del género
+                raf.seek(puntero+126);
                 byte[] trackNumber= new byte[1];
                 trackNumber = numPista.getBytes();
                 raf.write(trackNumber);
@@ -189,5 +189,78 @@ public class MP3 {
         } catch (IOException ioex){
             System.out.println("Error -> " + ioex.getMessage());
         }
+    }
+
+    public static String seleccionGenero(String g){
+        String genero;
+        switch (g){
+            case "0":
+                    genero = "Blues";
+                    break;
+            case "1":
+                genero = "Clasic rock";
+                break;
+            case "2":
+                genero = "Country";
+                break;
+            case "3":
+                genero = "Dance";
+                break;
+            case "4":
+                genero = "Disco";
+                break;
+            case "5":
+                genero = "Funk";
+                break;
+            case "6":
+                genero = "Grunge";
+                break;
+            case "7":
+                genero = "Hip-Hop";
+                break;
+            case "8":
+                genero = "Jazz";
+                break;
+            case "9":
+                genero = "Metal";
+                break;
+            case "10":
+                genero = "New age";
+                break;
+            case "11":
+                genero = "Oldies";
+                break;
+            case "12":
+                genero = "Other";
+                break;
+            case "13":
+                genero = "Pop";
+                break;
+            case "14":
+                genero = "Rhythm and blues";
+                break;
+            case "15":
+                genero = "Rap";
+                break;
+            case "16":
+                genero = "Reggae";
+                break;
+            case "17":
+                genero = "Rock";
+                break;
+            case "18":
+                genero = "Techno";
+                break;
+            case "19":
+                genero = "Industrial";
+                break;
+            case "20":
+                genero = "Alternative";
+                break;
+            default:
+                genero = "sin genero";
+                break;
+        }
+        return genero;
     }
 }
