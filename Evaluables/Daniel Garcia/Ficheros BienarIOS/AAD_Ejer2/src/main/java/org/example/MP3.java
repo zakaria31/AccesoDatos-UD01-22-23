@@ -1,6 +1,8 @@
 package org.example;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,11 +33,9 @@ public class MP3 {
 
             lecturaFichero.close();
 
-            for (String li: lineas) {
-                System.out.println(li);
-            }
-
             System.out.println("\n--------------------------------------------------");
+
+             Charset charset = StandardCharsets.ISO_8859_1;
 
             for (String l: lineas){
                 File f2 = new File(l);
@@ -66,8 +66,8 @@ public class MP3 {
                 raf.read(comentario);
                 String comment = new String(comentario);
 
-                byte [] a = new byte[1];
-                raf.read(a);
+                byte [] tieneNumeroPista = new byte[1];
+                raf.read(tieneNumeroPista);
 
                 byte[] numPista = new byte[1];
                 raf.read(numPista);
@@ -153,21 +153,36 @@ public class MP3 {
                 raf.seek(puntero + 3); //El "+3" es porque queremos leer a partir del titulo,
                 // por lo que los 3 bytes de la cabecera, los saltamos.
 
-                byte[] title = new byte[30];
+                byte[] title;
+                if(titulo.length() < 30){
+                    while(titulo.length() < 30){
+                        titulo = titulo + " ";
+                    }
+                }
                 title = titulo.getBytes();
                 raf.write(title);
 
-                raf.seek(puntero + 93);
-                byte[] year = new byte[4];
+                raf.seek(puntero + 93);//Para posicionarnos en el byte 93, y empezar a leer en el 94
+                byte[] year;
+                if(anyo.length() < 4){
+                    while(anyo.length() < 4){
+                        anyo += " ";
+                    }
+                }
                 year = anyo.getBytes();
                 raf.write(year);
 
-                byte[] comment = new byte[28];
+                byte[] comment;
+                if(comentario.length() < 28){
+                    while(comentario.length() < 28){
+                        comentario += " ";
+                    }
+                }
                 comment = comentario.getBytes();
                 raf.write(comment);
 
-                raf.seek(puntero+126);
-                byte[] trackNumber= new byte[1];
+                raf.seek(puntero+126);//Para posicionarnos en el byte 126, y leer el 127
+                byte[] trackNumber;
                 trackNumber = numPista.getBytes();
                 raf.write(trackNumber);
 
