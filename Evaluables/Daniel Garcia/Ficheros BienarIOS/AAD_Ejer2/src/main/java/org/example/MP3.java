@@ -66,10 +66,8 @@ public class MP3 {
                 raf.read(comentario);
                 String comment = new String(comentario);
 
-                //raf.seek(+1); //Sumamos 1, porque (tiene numero pista) no nos hace falta saberlo, y como ocupa 1byte, pues sumamos 1
                 byte [] a = new byte[1];
                 raf.read(a);
-                String tnp = new String(a);
 
                 byte[] numPista = new byte[1];
                 raf.read(numPista);
@@ -158,26 +156,20 @@ public class MP3 {
                 byte[] title = new byte[30];
                 title = titulo.getBytes();
                 raf.write(title);
-                //raf.writeBytes(titulo);
-
 
                 raf.seek(puntero + 93);
                 byte[] year = new byte[4];
                 year = anyo.getBytes();
                 raf.write(year);
-                //raf.writeBytes(anyo);
 
                 byte[] comment = new byte[28];
                 comment = comentario.getBytes();
                 raf.write(comment);
-                //raf.writeBytes(comentario);
-
 
                 raf.seek(puntero+126);
                 byte[] trackNumber= new byte[1];
                 trackNumber = numPista.getBytes();
                 raf.write(trackNumber);
-                //raf.writeBytes(numPista);
 
                 raf.close();
             }
