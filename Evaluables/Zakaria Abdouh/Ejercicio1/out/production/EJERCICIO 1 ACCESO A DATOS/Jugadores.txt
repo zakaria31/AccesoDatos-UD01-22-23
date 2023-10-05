@@ -1,0 +1,5 @@
+Pepito 4 Maria 3 Ana 5
+Maria 9 Pepito 6 AI1 3
+Ana 10 Pepito 12 AI1 5 AI2 7
+AI1 5 AI2 7 AI3 3 AI4 8
+Ana 12 Jaimito 0
